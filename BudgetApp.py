@@ -18,10 +18,10 @@ class Category:
         })
         return True
 
-    def get_balance(self, amount):
+    def get_balance(self):
         total = 0
         for item in self.ledger:
-            total += item[amount]
+            total += item["amount"]
         return total
 
 
