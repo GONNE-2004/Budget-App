@@ -1,6 +1,6 @@
 class Category:
     def __init__(self):
-        ledger = []
+        self.ledger = []
 
     def deposit(self, amount, description=""):
         """Deposits the specified amount into the category."""
@@ -26,6 +26,14 @@ class Category:
         for item in self.ledger:
             total += item["amount"]
         return total
+
+    def transfer(self, amount, category):
+        """Transfers the specified amount from this category to another category."""
+        if not self.withdraw(amount, f"Transfer to {category.name}"):
+            return False
+
+        category.deposit(amount, f"Transfer from {self.name}")
+        return True
 
 
 def create_spend_chart(categories):
