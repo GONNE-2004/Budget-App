@@ -1,6 +1,7 @@
 class Category:
-    def __init__(self):
+    def __init__(self, name):
         self.ledger = []
+        self.name = name
 
     def deposit(self, amount, description=""):
         """Deposits the specified amount into the category."""
@@ -11,7 +12,7 @@ class Category:
 
     def withdraw(self, amount, description=""):
         """Attempts to withdraw the specified amount from the category."""
-        if amount > self.get_balance():
+        if amount > self.check_funds(amount):  # check if there are enough funds before withdrawing
             return False
 
         self.ledger.append({
@@ -34,6 +35,10 @@ class Category:
 
         category.deposit(amount, f"Transfer from {self.name}")
         return True
+
+    def check_funds(self, amount):
+        """Checks if the category has enough funds for the specified amount."""
+        return amount <= self.get_balance()
 
 
 def create_spend_chart(categories):
