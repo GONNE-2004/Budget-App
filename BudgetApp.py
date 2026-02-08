@@ -44,4 +44,5 @@ class Category:
 
 
 def create_spend_chart(categories):
+    """Creates a bar chart representing the percentage of total spending for each category."""
     pass
