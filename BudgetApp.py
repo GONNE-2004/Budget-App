@@ -45,10 +45,13 @@ class Category:
     def __str__(self):
         output = []
         # title
+        # center the category name within a width of 30 characters, using "*" as the fill character on both sides
         output.append(self.name.center(30, "*"))
         # ledger enteries
         for item in self.ledger:
+            # take the first 23 characters of the description and left-align it within a width of 23 characters
             desc = item["description"][:23].ljust(23)
+            # format the amount to 2 decimal places and right-align it within a width of 7 characters
             amount = f"{item['amount']:.2f}".rjust(7)
             output.append(f"{desc}{amount}")
 
