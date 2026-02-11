@@ -13,7 +13,7 @@ class Category:
 
     def withdraw(self, amount, description=""):
         """Attempts to withdraw the specified amount from the category."""
-        if amount > self.check_funds(amount):  # check if there are enough funds before withdrawing
+        if not self.check_funds(amount):  # check if there are enough funds before withdrawing
             return False
 
         self.ledger.append({
