@@ -63,4 +63,16 @@ class Category:
 
 def create_spend_chart(categories):
     """Creates a bar chart representing the percentage of total spending for each category."""
-    pass
+
+    # Calculate total spending for each category and overall total spending
+    category_spent = []
+    for cat in categories:
+        spent = 0
+        for item in cat.ledger:
+            amt = item["amount"]
+            if amt < 0:  # only consider negative amounts as spending
+                spent += -amt
+        category_spent.append(spent)
+    total_spent = sum(category_spent)
+
+    # Calculate percentage spent for each category
