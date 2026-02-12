@@ -76,3 +76,20 @@ def create_spend_chart(categories):
     total_spent = sum(category_spent)
 
     # Calculate percentage spent for each category
+    percents = []
+    for spent in category_spent:
+        # calculate the percentage and convert to an integer
+        percent = int((spent / total_spent) * 100) // 10 * 10
+        # int truncates the percentage to the nearest lower multiple of 10
+        percents.append(percent)
+
+    # Create the bar chart
+    lines = ["Percentage spent by category"]
+    for i in range(100, -1, -10):
+        # format the percentage label to be right-aligned within a width of 3 characters, followed by a vertical bar
+        line = f"{i:>3}|"
+        for p in percents:
+            # add " o " if the percentage is greater than or equal to the current level, otherwise add spaces
+            line += " o " if p >= i else "   "
+        line += " "  # add a space at the end of the line for formatting
+        lines.append(line)
