@@ -58,6 +58,7 @@ class Category:
         # total
         output.append(f"Total: {self.get_balance():.2f}")
 
+        # join the list of strings into a single string with newline characters between them
         return "\n".join(output)
 
 
@@ -93,3 +94,52 @@ def create_spend_chart(categories):
             line += " o " if p >= i else "   "
         line += " "  # add a space at the end of the line for formatting
         lines.append(line)
+
+    # Add the horizontal line at the bottom of the chart
+    # 1st 4 spaces for the percentage labels and (|), then 3 spaces for each category which are in list, plus 1 extra space at the end
+    lines.append("   " + "-" * (len(categories) * 3 + 1))
+
+    # vertical labels for categories
+    # extract the category names into a list
+    names = [cat.name for cat in categories]
+    # find the length of the longest category name to determine how many lines are needed for the vertical labels
+    max_len = max(len(name) for name in names)
+
+    # iterate through each character position up to the length of the longest category name
+    for i in range(max_len):
+        line = "    "  # start with 4 spaces for the percentage labels and (|)
+        for name in names:
+            # add the character at position i of the category name if it exists, otherwise add a space
+            line += f" {name[i] if i < len(name) else ' '} "
+        line += " "  # add a space at the end of the line for formatting
+        lines.append(line)
+
+    # join the list of strings into a single string with newline characters between them
+    return "\n".join(lines)
+
+
+def main():
+    # Example usage
+    food = Category("Food")
+    entertainment = Category("Entertainment")
+    business = Category("Business")
+
+    food.deposit(1000, "Initial deposit")
+    food.withdraw(150.15, "Groceries")
+    food.withdraw(50.25, "Restaurant")
+
+    entertainment.deposit(500, "Initial deposit")
+    entertainment.withdraw(200, "Concert tickets")
+
+    business.deposit(1000, "Initial deposit")
+    business.withdraw(300, "Office supplies")
+
+    print(food)
+    print(entertainment)
+    print(business)
+
+    print(create_spend_chart([food, entertainment, business]))
+
+
+if __name__ == "__main__":
+    main()
